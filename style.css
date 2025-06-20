@@ -1,0 +1,45 @@
+body{
+    text-align: center;
+overflow-y: scroll;
+overflow-x: scroll;
+  
+}
+.container{
+    display: flex;
+    flex-direction: column;
+}
+.sticky{
+    height:30px;
+    /* position:sticky; */
+    margin:auto;
+    top: 0;
+    left:200; /* Set top position to 0 */
+    margin:30;
+    
+}
+.logo{
+color: blueviolet;
+font-style: oblique;
+font-weight: 900;
+}
+.fixed{
+    position: fixed;
+}
+
+
+
+.loginpage{
+    background-color: rgba(255, 255, 255, 0.855);
+    height:500px;
+    width:400px;
+    /* position:fixed; */
+    
+
+    position: fixed;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for the div's dimensions */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+

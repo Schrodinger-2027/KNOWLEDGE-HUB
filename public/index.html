@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNOWLEDGE HUB</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Your existing CSS styles */
+        .login-page {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; /* Adding transition for smooth magnification */
+}
+
+.login-page:hover {
+    transform: scale(1.05); /* Magnify the box on hover */
+}
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('newspaper.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: #f5f5f5; /* Fallback color */
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-page {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-page form {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .login-page form input[type="text"],
+        .login-page form input[type="email"],
+        .login-page form input[type="password"],
+        .login-page form input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .login-page form input[type="number"]::-webkit-outer-spin-button,
+        .login-page form input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .login-page form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-page form button:hover {
+            background-color: #0056b3;
+        }
+
+        .login-page form a {
+            text-decoration: none;
+            color: #007bff;
+            margin-right: 10px;
+        }
+
+        .login-page form hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 20px 0;
+        }
+
+        .login-page form label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .login-page form pre {
+            margin-bottom: 5px;
+        }
+
+        .login-page form label[for="privacy-policy"] {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        /* Styling for checkbox */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked::before {
+            content: '\2713';
+            display: block;
+            text-align: center;
+            line-height: 20px;
+            color: #007bff;
+        }
+
+        .checkbox-container label {
+            font-size: 14px;
+            color: #333;
+        }
+        
+        /* Adjusting spacing between terms and conditions and & */
+        .terms-and-conditions {
+            display: inline-block;
+            margin-right: 5px; /* Adjust this value as needed */
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <div class="login-page">
+        <form action="/home" method="POST">
+            <a href="index.html">REGISTER</a>
+            <a href="login.html">LOGIN</a>
+            <hr>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Full Name" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="abc123@email.com" required>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="**" required>
+            </div>
+            <div>
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="**" required>
+            </div>
+            <label for="number">Mobile Number</label>
+            <input type="number" id="number" name="number" placeholder="0123456789" required>
+            <div class="checkbox-container">
+                <input type="checkbox" id="privacy-policy" name="privacy-policy" required>
+                <label for="privacy-policy">I Accept the <a href="terms and condition.txt" target="_main">Terms and Conditions</a><span class="terms-and-conditions">&</span><a href="privacy policy.txt" target="_main">Privacy Policy</a></label>
+            </div>
+            <button type="submit"onclick="location.href='home.html'">REGISTER</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

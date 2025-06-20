@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Your existing CSS styles */
+        .login-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Set width */
+    text-align: center;
+    transition: transform 0.3s ease; /* Adding transition for smooth magnification */
+}
+
+.login-container:hover {
+    transform: scale(1.05); /* Magnify the box on hover */
+}
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('newspaper.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: #f5f5f5; /* Fallback color */
+        }
+
+        /* Your existing CSS styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #9896f0; /* Light gray background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px; /* Set width */
+            text-align: center;
+        }
+
+        .login-container a {
+            text-decoration: none;
+            color: #007bff; /* Blue color for links */
+            margin-right: 10px;
+        }
+
+        .login-container hr {
+            border: none;
+            border-top: 1px solid #ccc; /* Light gray horizontal line */
+            margin: 20px 0;
+        }
+
+        .login-container label {
+            display: block;
+            text-align: left;
+            margin-bottom: 10px;
+            color: #333; /* Dark gray color for labels */
+        }
+
+        .login-container input[type="email"],
+        .login-container input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px; /* Adjusted margin-bottom */
+            border: 1px solid #ccc; /* Light gray border */
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Custom Checkbox Styles */
+        .custom-checkbox {
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+            cursor: pointer;
+            user-select: none;
+            padding-left: 25px;
+            margin-top: 10px; /* Adjusted margin-top */
+            text-align: left; /* Align text properly */
+        }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .custom-checkbox:hover .checkmark {
+            background-color: #f2f2f2;
+        }
+
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #007bff;
+            border: 1px solid #007bff;
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the checkmark when checked */
+        .custom-checkbox input:checked ~ .checkmark:after {
+            display: block;
+            content: "";
+            position: absolute;
+            display: block;
+            left: 7px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .custom-checkbox input:checked ~ .checkmark {
+            background-color: #007bff;
+            border: 1px solid #007bff;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff; /* Blue color for button */
+            color: #fff; /* White text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background-color: #0056b3; /* Darker blue color on hover */
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <form  method="post" action="/login" id="login-form">
+        <a href="index.html">REGISTER</a>
+        <a href="login.html">LOGIN</a>
+        <hr>
+        <label for="emaillogin">Email ID</label><br>
+        <input type="email" id="emaillogin" name="email" placeholder="abc1234@email.com" required><br>
+        <label for="passwordlogin">Password</label><br>
+        <input type="password" id="passwordlogin" name="password" placeholder="**" required><br>
+        <label class="custom-checkbox" for="checkboxlogin">
+            <input type="checkbox" id="checkboxlogin" name="checkboxlogin">
+            <span class="checkmark"></span>
+            Keep me signed in
+        </label>
+        <br>
+        <button type="submit" id="buttonlogin">Login</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: black; /* Updated background color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Prevents scrollbar from appearing */
+            position: relative; /* Required for absolute positioning */
+        }
+
+        .container {
+            text-align: center;
+            position: relative; /* Required for absolute positioning */
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #1e90ff; /* Updated text color to blue */
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .button-container {
+            display: inline-block;
+            position: relative;
+        }
+
+        .button {
+            padding: 15px 30px;
+            background-color: #1e90ff; /* Updated button color to blue */
+            color: white;
+            border: none;
+            border-radius: 45%; /* Updated border radius */
+            cursor: pointer;
+            font-size: 18px;
+            transition: transform 0.2s ease;
+            animation: slideIn 0.8s ease forwards; /* Updated animation duration */
+            transform-style: preserve-3d; /* Enables 3D transformations */
+        }
+
+        .left-semicircle,
+        .right-semicircle {
+            width: 30px; /* Adjusted width to match the height of the button */
+            height: 30px; /* Adjusted height to match the height of the button */
+            border-radius: 50%;
+            background-color: #1e90ff; /* Updated button color to blue */
+            position: absolute;
+            top: 50%; /* Positioned at the middle vertically */
+            transform: translateY(-50%); /* Adjusted position to center vertically */
+            transform-origin: center;
+        }
+
+        .left-semicircle {
+            left: -30px; /* Positioned at the left of the button */
+        }
+
+        .right-semicircle {
+            right: -30px; /* Positioned at the right of the button */
+        }
+
+        .button:hover {
+            background-color: #1e90ff; /* Updated button color to blue */
+            transform: translateY(-5px) translateZ(10px); /* Move button up and towards the viewer */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Add shadow effect for depth */
+        }
+
+        .buffer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 5px solid transparent;
+            border-top-color: white;
+            border-radius: 50%;
+            animation: rotate 1s linear infinite;
+        }
+
+        @keyframes rotate {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .buffer.hide {
+            display: none; /* Initially hidden */
+        }
+
+        /* Animation for the first text container moving from left to right */
+        @keyframes slideLeftToRight {
+            0% {
+                transform: translate(-100%, -30%); /* Updated translation */
+            }
+            50% {
+                transform: translate(0%, -30%); /* Updated translation */
+            }
+            100% {
+                transform: translate(100%, -30%); /* Updated translation */
+            }
+        }
+
+        /* Animation for the second text container moving from right to left */
+        @keyframes slideRightToLeft {
+            0% {
+                transform: translate(100%, 30%); /* Updated translation */
+            }
+            50% {
+                transform: translate(0%, 30%); /* Updated translation */
+            }
+            100% {
+                transform: translate(-100%, 30%); /* Updated translation */
+            }
+        }
+
+        .text-container {
+            position: absolute;
+            width: 60%;
+            padding: 20px;
+            background-color: #1e90ff; /* Updated background color to blue */
+            border-radius: 10px;
+            animation-duration: 6s; /* Updated animation duration */
+            animation-iteration-count: infinite;
+            animation-direction: alternate; /* Reverses the animation direction on alternate cycles */
+        }
+
+        .text-container.left-to-right {
+            animation-name: slideLeftToRight;
+            left: -100%;
+            top: 1%; /* Adjusted position */
+        }
+
+        .text-container.right-to-left {
+            animation-name: slideRightToLeft;
+            right: -100%;
+            bottom: 1%; /* Adjusted position */
+        }
+
+        .text-container p {
+            color: black; /* Updated text color to black */
+            font-size: 16px;
+            margin: 0;
+            position: relative;
+            font-weight: bold; /* Make text bold */
+            font-style: italic; /* Make text italic */
+        }
+
+        /* Styling for the date and time box */
+        .date-time-box {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.306);
+            padding: 10px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 style="color: #1e90ff;">The World of Knowledge : The Knowledge Hub </h1> <!-- Updated text color to blue -->
+    <div class="button-container">
+        <button class="button" onclick="showBuffer()">Explore Now</button>
+    </div>
+    <div class="text-container left-to-right">
+        <p>INDIA'S ECONOMY IS GOING TO OVERTAKE EVERY COUNTRY'S ECONOMY BY 2030.</p> <!-- Shortened text -->
+    </div>
+    <div class="text-container right-to-left">
+        <p>KEEPING UP TO DATE WITH THE LATEST NEWS IS THE SIGN OF AN INTELLIGENT HUMAN.</p> <!-- Shortened text -->
+    </div>
+    <div class="buffer hide" id="buffer"></div> <!-- Circular buffer -->
+</div>
+
+<div class="date-time-box" id="datetime"></div>
+
+<script>
+    function showBuffer() {
+        document.getElementById('buffer').classList.remove('hide'); // Show buffer
+        setTimeout(function() {
+            window.location.href = 'mainpage.html'; // Redirect after delay
+        }, 3000); // 3000 milliseconds (3 seconds) delay
+    }
+
+    // Function to display live date and time
+    function displayDateTime() {
+        const now = new Date();
+        const dateTimeString = now.toLocaleString();
+        document.getElementById('datetime').textContent = dateTimeString;
+    }
+
+    // Update date and time every second
+    setInterval(displayDateTime, 1000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../DSA"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "KNOWLEDGE HUB"
+	}
+}

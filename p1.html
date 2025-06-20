@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigation Bar Example</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        overflow-y: scroll; /* Add scroll to body */
+        margin: 0; /* Remove default margin */
+        padding: 0; /* Remove default padding */
+    }
+
+    .header {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 100px;
+        font-weight: bold;
+        font-family: 'Cursive';
+    }
+
+    .navbar {
+        overflow: hidden;
+        background-color: #333;
+        margin-top: 50px;
+    }
+
+    .navbar a, .dropdown-content a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+    }
+
+    .navbar a:hover, .dropdown-content a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .dropdown {
+        float: left;
+        overflow: hidden;
+    }
+
+    .dropdown .dropbtn {
+        cursor: pointer;
+        font-size: 16px;
+        border: none;
+        outline: none;
+        color: white;
+        padding: 14px 20px;
+        background-color: inherit;
+        font-family: inherit;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #333;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        float: none;
+        color: white;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    /* Register and Login buttons */
+    .register-btn, .login-btn {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        border-radius: 50%;
+        background-color: inherit;
+        font-family: inherit;
+        border: 2px solid white; /* Add a white border */
+    }
+
+    .register-btn:hover, .login-btn:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    /* Information bar */
+    .info-bar {
+        background-color: grey;
+        color: yellow;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .info-bar span {
+        margin: 0 10px;
+    }
+
+    /* Vertical divisions */
+    .vertical-divider {
+        width: 1px;
+        background-color: rgba(255, 255, 255, 0.2); /* Lighter color */
+        height: 500px; /* Adjust height as needed */
+        margin: 0 20px; /* Adjust margin as needed */
+        display: inline-block;
+    }
+
+    /* Main container for vertical divisions */
+    .vertical-divider-container {
+        text-align: center;
+        margin-top: 20px; /* Adjust top margin as needed */
+    }
+
+    /* Content within the divisions */
+    .division-content {
+        color: white;
+        font-size: 20px;
+        padding: 20px;
+        display: inline-block;
+    }
+
+    /* Magnifying effect on hover */
+    .magnify-container {
+        display: inline-block;
+        transition: transform 0.3s; /* Add smooth transition */
+    }
+
+    .magnify-container:hover {
+        transform: scale(1.2); /* Magnify effect on hover */
+    }
+
+    /* Headings style */
+    .big-bold-heading {
+        font-size: 36px;
+        font-weight: bold;
+        color: white;
+    }
+</style>
+</head>
+<body>
+<div class="info-bar">
+    <span id="date"></span>
+    <span id="time"></span>
+    <span id="temp"></span>
+</div>
+<div class="header">KNOWLEDGE HUB</div>
+<div class="navbar">
+    <a href="home.html">HOME</a>
+    <div class="dropdown">
+        <button class="dropbtn">SPORTS</button>
+        <div class="dropdown-content">
+            <a href="tennis.html">TENNIS</a>
+            <a href="cricket.html">CRICKET</a>
+            <a href="bad.html">BADMINTON</a>
+            <a href="football.html">FOOTBALL</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">POLITICS</button>
+        <div class="dropdown-content">
+            <a href="elections.html">ELECTIONS</a>
+            <a href="#missions">NEW MISSIONS AND ACHIEVEMENTS</a>
+            <a href="#opinion">POPULAR OPINION</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">ECONOMY</button>
+        <div class="dropdown-content">
+            <a href="#sensex">SENSEX</a>
+            <a href="#entrepreneur">ENTREPRENEUR'S COLUMN</a>
+            <a href="#global">ACHIEVEMENTS AT THE GLOBAL LEVEL</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">EXTERNAL AFFAIRS</button>
+        <div class="dropdown-content">
+            <a href="#un">INDIA IN THE UN</a>
+            <a href="#pacts">INDIA'S PACTS</a>
+            <a href="#alliances">INDIA'S ALLIANCES</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">ENTERTAINMENT</button>
+        <div class="dropdown-content">
+            <a href="#bollywood">BOLLYWOOD</a>
+            <a href="#youtube">YOUTUBE STARS</a>
+            <a href="#trends">RISING TRENDS</a>
+        </div>
+    </div>
+    <a href="contact.html">CONTACT</a>
+    <a href="more.html">MORE</a>
+    <a href="index.html" class="register-btn">REGISTER</a>
+    <a href="login.html" class="login-btn">LOGIN</a>
+</div>
+
+<div class="vertical-divider-container">
+    <div class="division-content magnify-container">
+        <div class="big-bold-heading">Headlines</div>
+    </div>
+    <div class="vertical-divider"></div>
+    <div class="division-content magnify-container">
+        <div class="big-bold-heading">Hot Picks</div>
+    </div>
+    <div class="vertical-divider"></div>
+    <div class="division-content magnify-container">
+        <div class="big-bold-heading">Trending Topics</div>
+    </div>
+</div>
+
+<script>
+    // Function to get current date and time
+    function updateTime() {
+        var today = new Date();
+        var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        document.getElementById('date').innerText = 'Date: ' + date;
+        document.getElementById('time').innerText = 'Time: ' + time;
+    }
+
+    // Function to get temperature (example)
+    function getTemperature() {
+        // Replace this with your actual temperature fetching logic
+        var temperature = '40°C';
+        document.getElementById('temp').innerText = 'Prayagraj Temperature: ' + temperature;
+    }
+
+    // Update date, time, and temperature every second
+    setInterval(updateTime, 1000);
+    getTemperature(); // Initial call to get temperature
+</script>
+
+</body>
+</html>
