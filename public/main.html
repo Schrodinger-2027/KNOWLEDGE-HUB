@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navigation Bar Example</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow-y: scroll;
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+        color: #fff;
+    }
+
+    .header {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 70px;
+        font-weight: bold;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #1e90ff;
+    }
+
+    .navbar {
+        overflow: hidden;
+        background-color: #000;
+        margin-top: 30px;
+    }
+
+    .navbar a, .dropdown-content a {
+        float: left;
+        display: block;
+        color: #fff;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: normal;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .navbar a:hover, .dropdown-content a:hover {
+        background-color: #fff;
+        color: #000;
+    }
+
+    .dropdown {
+        float: left;
+        overflow: hidden;
+    }
+
+    .dropdown .dropbtn {
+        cursor: pointer;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        color: #fff;
+        padding: 14px 20px;
+        background-color: inherit;
+        font-weight: normal;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #1e90ff;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+        border-radius: 0 0 10px 10px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: normal;
+    }
+
+    .dropdown-content a {
+        float: none;
+        color: #fff;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+        font-size: 16px;
+        font-weight: normal;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .info-bar {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .info-bar span {
+        margin: 0 10px;
+    }
+
+    .register-btn, .login-btn {
+        color: #fff;
+        text-decoration: none;
+        margin-right: 20px;
+        font-size: 16px;
+        font-weight: normal;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .register-btn:hover, .login-btn:hover {
+        color: #1e90ff;
+    }
+
+    .trending-container {
+        background-color: #222;
+        padding: 30px;
+        border-radius: 10px;
+        margin-top: 50px;
+        margin-left: 20px;
+    }
+
+    .trending-topics {
+        font-size: 36px;
+        font-weight: bold;
+        color: #1e90ff;
+        margin-bottom: 20px;
+    }
+
+    .opinion-container {
+        background-color: #222;
+        padding: 30px;
+        border-radius: 10px;
+        margin-top: 50px;
+        margin-left: 20px;
+    }
+
+    .opinion-poll {
+        font-size: 36px;
+        font-weight: bold;
+        color: #1e90ff;
+        margin-bottom: 20px;
+    }
+
+    .image-container {
+        display: inline-block;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 300px;
+        text-align: center;
+        background-color: #444;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: 200px;
+        border-radius: 10px;
+        transition: transform 0.3s;
+    }
+
+    .image-container:hover img {
+        transform: scale(1.05);
+    }
+    .trending-container, .opinion-container {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping to next line */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+    -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+.image-container {
+    flex: 0 0 auto; /* Allow containers to shrink, but not grow */
+    margin-right: 20px; /* Add spacing between image containers */
+    width: 300px;
+    text-align: center;
+    background-color: #444;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.trending-topics {
+    font-size: 36px;
+    font-weight: bold;
+    color: #1e90ff;
+    margin-bottom: 20px;
+    margin-top: 20px; /* Add margin-top */
+}
+.trending-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #222;
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+.trending-topics {
+    font-size: 36px;
+    font-weight: bold;
+    color: #1e90ff;
+    margin-bottom: 20px;
+}
+
+.image-container {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 300px;
+    text-align: center;
+    background-color: #444;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.image-container img {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.image-container:hover img {
+    transform: scale(1.05);
+}
+.image-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px; /* Adjust the top margin as needed */
+}
+
+.image-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 300px;
+    text-align: center;
+    background-color: #444;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.image-container img {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.image-container:hover img {
+    transform: scale(1.05);
+}
+
+
+
+</style>
+</head>
+<body>
+<div class="info-bar">
+    <a href="login.html" class="login-btn">LOGIN</a>
+    <a href="index.html" class="register-btn">REGISTER</a>
+    <span id="date"></span>
+    <span id="time"></span>
+    <span id="temp"></span>
+</div>
+<div class="header">KNOWLEDGE HUB</div>
+<div class="navbar">
+    <a href="home.html">HOME</a>
+    <div class="dropdown">
+        <button class="dropbtn">SPORTS</button>
+        <div class="dropdown-content">
+            <a href="tennis.html">TENNIS</a>
+            <a href="cricket.html">CRICKET</a>
+            <a href="bad.html">BADMINTON</a>
+            <a href="football.html">FOOTBALL</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">POLITICS</button>
+        <div class="dropdown-content">
+            <a href="elections.html">ELECTIONS</a>
+            <a href="#missions">NEW MISSIONS AND ACHIEVEMENTS</a>
+            <a href="#opinion">POPULAR OPINION</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">ECONOMY</button>
+        <div class="dropdown-content">
+            <a href="#sensex">SENSEX</a>
+            <a href="#entrepreneur">ENTREPRENEUR'S COLUMN</a>
+            <a href="#global">ACHIEVEMENTS AT THE GLOBAL LEVEL</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">EXTERNAL AFFAIRS</button>
+        <div class="dropdown-content">
+            <a href="#un">INDIA IN THE UN</a>
+            <a href="#pacts">INDIA'S PACTS</a>
+            <a href="#alliances">INDIA'S ALLIANCES</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">ENTERTAINMENT</button>
+        <div class="dropdown-content">
+            <a href="#bollywood">BOLLYWOOD</a>
+            <a href="#youtube">YOUTUBE STARS</a>
+            <a href="#trends">RISING TRENDS</a>
+        </div>
+    </div>
+    <a href="contact.html">CONTACT</a>
+    <a href="more.html">MORE</a>
+</div>
+
+<div class="trending-container">
+    <div class="trending-topics">Trending Topics</div>
+    <div class="image-row">
+        <div class="image-container">
+            <a href="elections6.html">
+                <img src="assests/bhagwant.jpg" alt="Trending Topic 1">
+            </a>
+        </div>
+
+        <div class="image-container">
+            <a href="football1.html">
+                <img src="assests/lisandro.jpg" alt="Trending Topic 2">
+            </a>
+        </div>
+
+        <div class="image-container">
+            <a href="sunsex1.html">
+                <img src="assests/sunsex.jpeg" alt="Trending Topic 3">
+            </a>
+        </div>
+
+        <div class="image-container">
+            <a href="boll1.html">
+                <img src="assests/kaliki.jpeg" alt="Trending Topic 4">
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div class="opinion-container">
+    <div class="opinion-poll">Opinion Poll</div>
+
+    <div class="image-container">
+        <a href="opinion1.html">
+            <img src="opinion1.jpg" alt="Opinion Poll 1">
+        </a>
+    </div>
+
+    <div class="image-container">
+        <a href="opinion2.html">
+            <img src="opinion2.jpg" alt="Opinion Poll 2">
+        </a>
+    </div>
+
+    <div class="image-container">
+        <a href="opinion3.html">
+            <img src="opinion3.jpg" alt="Opinion Poll 3">
+        </a>
+    </div>
+
+    <div class="image-container">
+        <a href="opinion4.html">
+            <img src="opinion4.jpg" alt="Opinion Poll 4">
+        </a>
+    </div>
+</div>
+
+<script>
+    function updateTime() {
+        var today = new Date();
+        var date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        document.getElementById('date').innerText = 'Date: ' + date;
+        document.getElementById('time').innerText = 'Time: ' + time;
+    }
+
+    function getTemperature() {
+        var temperature = '40&deg; C';
+        document.getElementById('temp').innerHTML = 'Prayagraj Temperature: ' + temperature;
+    }
+
+    setInterval(updateTime, 1000);
+    getTemperature();
+</script>
+
+</body>
+</html>

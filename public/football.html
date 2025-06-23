@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tennis Highlights</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color:#333; /* Dark background for contrast */
+            color:white; /* Light text color */
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .gallery div {
+            width: 300px;
+            height: 200px; /* Fixed height */
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative; /* Added for absolute positioning of the link */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .gallery div:hover {
+            transform: scale(1.05);
+        }
+        .gallery img {
+            width: 100%;
+            height: 100%; /* Ensure image covers the div */
+            object-fit: cover; /* Ensure aspect ratio is maintained without stretching */
+            transition: transform 0.3s ease;
+        }
+        .gallery a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery div:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Styles for image container and overlay */
+        .img-container img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .img-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .img-container .img-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .img-container:hover .img-content {
+            transform: translateY(0%);
+        }
+
+        .img-container h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .img-content p {
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .img-content a {
+            color: #fff;
+            font-size: 1rem;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<h2>FOOTBALL HIGHLIGHTS OF THE PAST ONE WEEK</h2>
+
+<div class="gallery">
+    <div class="img-container">
+        <a href="football1.html">
+            <img src="assests/lisandro.jpg" alt="Highlight 1">
+            <div class="img-content">
+                <h3>MANCHESTER UNITED MISERY</h3>
+                <p>Click here to learn more</p>
+            </div>
+        </a>
+    </div>
+    <div class="img-container">
+        <a href="football2.html">
+            <img src="assests/diogo.jpg" alt="Highlight 2">
+            <div class="img-content">
+                <h3>LATEST INJURY UPDATES-LIVERPOOL</h3>
+                <p>Click here to learn more</p>
+            </div>
+        </a>
+    </div>
+    <div class="img-container">
+        <a href="football3.html">
+            <img src="assests/haaland.jpg" alt="Highlight 3">
+            <div class="img-content">
+                <h3>PEP DEFENDS HIS DISCIPLE </h3>
+                <p>Click here to learn more</p>
+            </div>
+        </a>
+    </div>
+    <div class="img-container">
+        <a href="football4.html">
+            <img src="assests/messi.jpg" alt="Highlight 4">
+            <div class="img-content">
+                <h3>CALL ON MESSI'S AVAILABILITY </h3>
+                <p>Click here to learn more</p>
+            </div>
+        </a>
+    </div>
+    <div class="img-container">
+        <a href="football5.html">
+            <img src="assests/ronaldo.jpg" alt="Highlight 5">
+            <div class="img-content">
+                <h3>THE MASTER AT WORK</h3>
+                <p>Click here to learn more</p>
+            </div>
+        </a>
+    </div>
+    <div class="img-container">
+        <a href="football6.html">
+            <img src="assests/chellini.jpg" alt="Highlight 6">
+            <div class="img-content">
+                <h3>LISTEN WHAT CHELLINI SAID ABT RONALDO</h3>
+                <p>Click here to learn more</p>
+            </div>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

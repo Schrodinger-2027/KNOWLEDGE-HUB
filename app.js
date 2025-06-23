@@ -62,45 +62,50 @@ app.post('/home', async (req, res) => {
 });
 
 app.get('/login',function (req,res){
-    res.sendFile(__dirname+'/login.html')
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 })
+
+app.get('/home', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'home.html'));
+});
+
 
 app.post('/login',async function(req,res){
-
     const { email, password } = req.body;
+    try {
+      // Check if user exists in the database
+      const user = await User.findOne({ email });
 
-  try {
-    // Check if user exists in the database
-    const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
 
-    if (!user) {
-      return res.status(404).send('User not found');
+      // Check if the provided password matches the stored password
+      if (user.password !== password) {
+        return res.status(401).send('Incorrect password');
+      }
+
+      // Authentication successful
+      res.redirect('/home');
+
+    } catch (error) {
+      res.status(500).send('Internal Server Error');
     }
-
-    // Check if the provided password matches the stored password
-    if (user.password !== password) {
-      return res.status(401).send('Incorrect password');
-    }
-
-    // Authentication successful
-    res.send('Login successful!');
-  } catch (error) {
-    res.status(500).send('Internal Server Error');
-  }
-
-    
-
 })
+
+
 app.get('/tennis.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'tennis.html'));
 });
+
 const desSchema = new mongoose.Schema({
     description: String,
     
   });
   
   // Define MongoDB Model
-  const des = mongoose.model('Des', desSchema);
+const des = mongoose.model('Des', desSchema);
+
 app.post('/submit_tennis', async (req, res) => {
     
         // Extract data from the request body
