@@ -6,11 +6,7 @@
   <title>Register | Knowledge Hub</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Roboto', sans-serif;
@@ -32,14 +28,8 @@
     }
 
     @keyframes slideIn {
-      from {
-        transform: translateY(-20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     h2 {
@@ -98,12 +88,17 @@
     .links a {
       color: #007bff;
       text-decoration: none;
-      transition: color 0.3s;
     }
 
     .links a:hover {
       text-decoration: underline;
-      color: #0056b3;
+    }
+
+    .note {
+      margin-top: 15px;
+      font-size: 14px;
+      text-align: center;
+      color: #555;
     }
   </style>
 </head>
@@ -126,6 +121,10 @@
       <input type="tel" name="number" id="number" placeholder="0123456789" pattern="[0-9]{10}" required />
 
       <button type="submit">Register</button>
+
+      <div class="note">
+        After submitting, please check your email for a verification link.
+      </div>
 
       <div class="links">
         <a href="login.html">Already have an account?</a>

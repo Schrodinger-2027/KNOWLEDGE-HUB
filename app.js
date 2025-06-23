@@ -3,27 +3,26 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const path = require('path');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const port = 3000;
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/myapp', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-// DB connection check
+// MongoDB connection
+mongoose.connect('mongodb://localhost:27017/myapp');
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB error:'));
 db.once('open', () => console.log('Connected to MongoDB'));
 
-// Define MongoDB Schema and Model
+// Schema
 const userSchema = new mongoose.Schema({
   name: String,
   email: String,
   password: String,
   number: String,
+  verified: { type: Boolean, default: false },
+  verificationToken: String
 });
 const User = mongoose.model('User', userSchema);
 
@@ -32,75 +31,146 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve register page
+// Register Page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
 
-// Registration route
-app.post('/register', async (req, res) => {
-  const { name, email, password, number } = req.body;
-  if (!name || !email || !password || !number) {
-    return res.status(400).send('Missing field items');
-  }
-  if (password.length < 8) {
-    return res.status(400).send('Password should be at least 8 characters');
-  }
-
-  const existing = await User.findOne({ email });
-  if (existing) {
-    return res.status(409).send('User already exists');
-  }
-
-  const hashed = await bcrypt.hash(password, 10);
-  const newUser = new User({ name, email, password: hashed, number });
-  await newUser.save();
-
-  return res.redirect('/login');
-});
-
-// Login page
+// Login Page
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
-// Login handler
-app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await User.findOne({ email });
-    if (!user) return res.status(404).send('User not found');
-
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.status(401).send('Incorrect password');
-
-    return res.redirect('/home');
-  } catch (err) {
-    return res.status(500).send('Internal Server Error');
-  }
-});
-
-// Home page
+// Home Page
 app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
-// Tennis feedback
-const desSchema = new mongoose.Schema({ description: String });
-const des = mongoose.model('Des', desSchema);
+// Register API
+app.post('/register', async (req, res) => {
+  const { name, email, password, number } = req.body;
+  if (!name || !email || !password || !number) return res.status(400).send('Missing field items');
+  if (password.length < 8) return res.status(400).send('Password too short');
 
-app.post('/submit_tennis', async (req, res) => {
-  try {
-    const { description } = req.body;
-    const desuserq = new des({ description });
-    await desuserq.save();
-    res.send('Feedback submitted!');
-  } catch {
-    res.status(500).send('Internal Server Error');
-  }
+  const exists = await User.findOne({ email });
+  if (exists) return res.status(409).send('User already exists');
+
+  const hashed = await bcrypt.hash(password, 10);
+  const verificationToken = crypto.randomBytes(32).toString('hex');
+
+  const newUser = new User({ name, email, password: hashed, number, verificationToken });
+  await newUser.save();
+
+  const link = `http://localhost:3000/verify-email?token=${verificationToken}&email=${email}`;
+
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'Schrodinger2027@gmail.com',
+      pass: 'qxcr gwmf zpsn pene'
+    }
+  });
+
+  await transporter.sendMail({
+    from: 'your_email@gmail.com',
+    to: email,
+    subject: 'Verify Email',
+    text: `Click to verify: ${link}`
+  });
+
+res.send('Registration successful. Please check your email to verify your account.');
+
 });
 
-// Start server
+// Verify Email
+app.get('/verify-email', async (req, res) => {
+  const { email, token } = req.query;
+  const user = await User.findOne({ email, verificationToken: token });
+
+  if (!user) return res.status(400).send('Invalid/expired link');
+  user.verified = true;
+  user.verificationToken = undefined;
+  await user.save();
+
+  res.redirect('/login');
+
+});
+
+// Login API
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return res.status(404).send('User not found');
+  if (!user.verified) return res.status(403).send('Please verify your email');
+
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) return res.status(401).send('Wrong password');
+
+  res.redirect('/home');
+});
+
+// Schema for forget password
+const tokenSchema = new mongoose.Schema({
+  email: String,
+  token: String,
+  createdAt: { type: Date, default: Date.now, expires: 3600 } // 1 hour expiry
+});
+const Token = mongoose.model('Token', tokenSchema);
+
+const forgotPasswordHtml = path.join(__dirname, 'public', 'forgot-password.html');
+app.get('/forgot-password', (req, res) => {
+  res.sendFile(forgotPasswordHtml);
+});
+
+// for sending email to user
+app.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return res.status(404).send('User not found');
+
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  await Token.findOneAndDelete({ email }); // Remove old token
+  await new Token({ email, token: resetToken }).save();
+
+  const resetLink = `http://localhost:3000/reset-password?token=${resetToken}&email=${email}`;
+
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'Schrodinger2027@gmail.com',
+      pass: 'qxcr gwmf zpsn pene'
+    }
+  });
+
+  await transporter.sendMail({
+    from: 'your_email@gmail.com',
+    to: email,
+    subject: 'Reset Password',
+    text: `Click here to reset your password: ${resetLink}`
+  });
+
+  res.send('Reset link sent to your email.');
+});
+
+app.get('/reset-password', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'reset-password.html'));
+});
+
+app.post('/reset-password', async (req, res) => {
+  const { email, token, password } = req.body;
+  const validToken = await Token.findOne({ email, token });
+  if (!validToken) return res.status(400).send('Invalid or expired token');
+
+  const hashed = await bcrypt.hash(password, 10);
+  await User.findOneAndUpdate({ email }, { password: hashed });
+  await Token.deleteOne({ email });
+
+  res.send('/login');
+});
+
+
+
+// Start Server
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server running at http://localhost:${port}`);
 });
