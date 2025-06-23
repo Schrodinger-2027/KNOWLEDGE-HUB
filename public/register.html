@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Knowledge Hub - Register</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: url('newspaper.jpg') center/cover no-repeat;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f5f5f5;
+    }
+
+    .login-page {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #333;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-page">
+    <form action="/register" method="POST">
+      <h2>Register</h2>
+      
+      <label for="name">Full Name</label>
+      <input type="text" name="name" id="name" placeholder="Pritam Choudhary" required />
+
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" placeholder="abc@example.com" required />
+
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" placeholder="Min 8 characters" minlength="8" required />
+
+      <label for="number">Mobile Number</label>
+      <input type="tel" name="number" id="number" placeholder="0123456789" pattern="[0-9]{10}" required />
+
+      <button type="submit">REGISTER</button>
+
+      <div class="links">
+        <a href="register.html">Register</a>
+        <a href="login.html">Login</a>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
