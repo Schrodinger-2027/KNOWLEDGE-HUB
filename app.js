@@ -5,6 +5,9 @@ const bcrypt = require('bcrypt');
 const path = require('path');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const port = 3000;
@@ -31,18 +34,61 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use(session({
+  secret: '4c7e629c09b94a3cbe5c7b9ddbd13462ff2df0a8b24dca12eb5a2214dafe5f79', // should be strong and stored in .env
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: 'mongodb://localhost:27017/myapp',
+    collectionName: 'sessions'
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60, // 1 hour
+    httpOnly: true
+  }
+}));
+
+const publicRoutes = ['/', '/login', '/register', '/forgot-password', '/reset-password'];
+
+app.use((req, res, next) => {
+  if (publicRoutes.includes(req.path) || req.path.startsWith('/verify-email')) {
+    return next(); // allow public routes
+  }
+  if (req.session.userId) {
+    return next(); // user is logged in, allow
+  }
+  // not logged in, redirect to login page
+  res.redirect('/login');
+});
+
+
+function isAuthenticated(req, res, next) {
+  if (req.session.userId) return next();
+  res.redirect('/login');
+}
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // limit each IP to 5 requests per windowMs
+  message: {
+    success: false,
+    message: 'Too many login attempts from this IP, please try again after 15 minutes'
+  }
+});
+
 // Register Page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'register.html'));
 });
 
 // Login Page
-app.get('/login', (req, res) => {
+app.get('/login', loginLimiter, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
 // Home Page
-app.get('/home', (req, res) => {
+app.get('/home', isAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
@@ -105,7 +151,7 @@ app.post('/login', async (req, res) => {
 
   const match = await bcrypt.compare(password, user.password);
   if (!match) return res.status(401).send('Wrong password');
-
+  req.session.userId = user._id;
   res.redirect('/home');
 });
 
